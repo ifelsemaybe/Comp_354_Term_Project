@@ -1,5 +1,7 @@
 package com.company;
 
+import java.math.BigDecimal;
+
 public class Driver {
 
     public static void main(String[] args) {
@@ -8,5 +10,16 @@ public class Driver {
 
         m.arccos(5);
 
+        System.out.println(BigDecimal.valueOf(m.log(10,0.9999999)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(10,1000000000)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(10,41)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(0.2,5)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(5,0.1)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(5,0.000000000000001)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(1000000000,100)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(10,1999999999)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(1999999999,10)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(10,1999999999E24)).toPlainString());
+        System.out.println(BigDecimal.valueOf(m.log(1999999999,-10)).toPlainString());
     }
 }
