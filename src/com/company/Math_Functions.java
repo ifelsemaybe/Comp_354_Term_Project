@@ -43,11 +43,19 @@ public class Math_Functions {
     }
 
     double sinh(double x){ //Miraj Patel
+        double euler = 2.71828;
+        double result1 = 1;
+        double result2 = 1;
+        double answer;
 
-        double answer = 2.5;
+        for(int i = 0; i < x; i++)
+        {
+            result1 *= euler;
+        }
 
+        result2 = 1/(result1);
+        answer = (result1 - result2) / 2;
         return answer;
-
     }
 
     double x(double y){ //Kirk
