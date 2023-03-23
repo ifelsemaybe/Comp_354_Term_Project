@@ -6,7 +6,17 @@ public class Driver {
 
         Math_Functions m = new Math_Functions();
 
-        m.arccos(5);
+        try{
+
+            System.out.println(m.arccos(0.98));
+
+        }
+
+        catch (IllegalArgumentException ex){
+
+            System.out.println(ex.getMessage());
+
+        }
 
     }
 }
