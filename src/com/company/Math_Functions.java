@@ -49,7 +49,7 @@ public class Math_Functions {
 
         //Changing the condition of i (50) will change accuracy of result
         //Increase it to make answer more precise
-        for (int i = 1; i < 50; i++)
+        for (int i = 1; i < 1000; i++)
         {
             answer += term;
             term *= xSquared / (2 * i * (2 * i + 1));
