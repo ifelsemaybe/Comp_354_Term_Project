@@ -1,6 +1,5 @@
 package com.company;
 
-import java.math.BigDecimal;
 import static java.util.AbstractMap.SimpleEntry;
 public class Math_Functions {
     public static final double LN10 = 2.30258509299;
@@ -38,10 +37,10 @@ public class Math_Functions {
         }
 
         // Get tuple (convergingX, k) such that x = convergingX * 10^(k)
-        SimpleEntry<BigDecimal,BigDecimal> tupleArg = convertToConvergenceValue(x);
-        SimpleEntry<BigDecimal,BigDecimal> tupleBase = convertToConvergenceValue(base);
-        double convergingX = tupleArg.getKey().doubleValue(); double argExponent = tupleArg.getValue().doubleValue();
-        double convergingBase = tupleBase.getKey().doubleValue(); double baseExponent = tupleBase.getValue().doubleValue();
+        SimpleEntry<Double,Double> tupleArg = convertToConvergenceValue(x);
+        SimpleEntry<Double,Double> tupleBase = convertToConvergenceValue(base);
+        double convergingX = tupleArg.getKey(); double argExponent = tupleArg.getValue();
+        double convergingBase = tupleBase.getKey(); double baseExponent = tupleBase.getValue();
 
         // Using ln(x) = ln(convergingX * 10^(k) = ln(convergingX) + k * ln(10)
         return (ln(convergingX) + (argExponent * LN10)) / (ln(convergingBase) + (baseExponent * LN10));
@@ -90,20 +89,20 @@ public class Math_Functions {
      * @param x a double value to convert into a converging value between 0 and 2, but not too close to the boundaries
      * @return A tuple (convergingX, exponent) where convergingX and an exponent k are such that x = convergingX * 10^(k)
      */
-    SimpleEntry<BigDecimal, BigDecimal> convertToConvergenceValue(double x){
+    SimpleEntry<Double, Double> convertToConvergenceValue(double x){
 
-        BigDecimal convergingX = new BigDecimal(x);
-        BigDecimal exponent = BigDecimal.ZERO;
+        double convergingX = x;
+        double exponent = 0.0;
 
         //while x > 1 or x < 0.1, try to find a valid convergingX (0 < convergingX < 2, not too close to the boundaries)
-        while(convergingX.compareTo(BigDecimal.valueOf(1.0)) > 0 || convergingX.compareTo(BigDecimal.valueOf(0.1)) < 0){
+        while(convergingX > 1 || convergingX < 0.1){
             //if x < 0.1
-            if(convergingX.compareTo(BigDecimal.valueOf(0.1)) < 0){
-                convergingX = convergingX.multiply(BigDecimal.valueOf(10.0));
-                exponent = exponent.subtract(BigDecimal.ONE); // to maintain equality, convergingX * 10^(exponent)
+            if(convergingX < 0.1){
+                convergingX *= 10.0;
+                exponent -= 1.0;      // to maintain equality, convergingX * 10^(exponent)
             } else {
-                convergingX = convergingX.divide(BigDecimal.valueOf(10.0));
-                exponent = exponent.add(BigDecimal.ONE);      // to maintain equality, convergingX * 10^(exponent)
+                convergingX /= 10.0;
+                exponent += 1.0;      // to maintain equality, convergingX * 10^(exponent)
             }
         }
 
