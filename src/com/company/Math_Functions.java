@@ -43,18 +43,18 @@ public class Math_Functions {
     }
 
     double sinh(double x){ //Miraj Patel
-        double euler = 2.71828;
-        double result1 = 1;
-        double result2 = 1;
-        double answer;
+        double answer = 0.0;
+        double term = x;
+        double xSquared = x * x;
 
-        for(int i = 0; i < x; i++)
+        //Changing the condition of i (50) will change accuracy of result
+        //Increase it to make answer more precise
+        for (int i = 1; i < 50; i++)
         {
-            result1 *= euler;
+            answer += term;
+            term *= xSquared / (2 * i * (2 * i + 1));
         }
 
-        result2 = 1/(result1);
-        answer = (result1 - result2) / 2;
         return answer;
     }
 
