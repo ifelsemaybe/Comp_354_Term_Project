@@ -126,11 +126,19 @@ public class Math_Functions {
     }
 
     double sinh(double x){ //Miraj Patel
+        double answer = 0.0;
+        double term = x;
+        double xSquared = x * x;
 
-        double answer = 2.5;
+        //Changing the condition of i (50) will change accuracy of result
+        //Increase it to make answer more precise
+        for (int i = 1; i < 1000; i++)
+        {
+            answer += term;
+            term *= xSquared / (2 * i * (2 * i + 1));
+        }
 
         return answer;
-
     }
 
     double x(double y){ //Kirk
