@@ -3,6 +3,7 @@ package com.company;
 import static java.util.AbstractMap.SimpleEntry;
 public class Math_Functions {
     public static final double LN10 = 2.30258509299;
+    public static final double e = 2.7182818284;
     double arccos(double x){ //Alexandar Petrov
 
         double answer = 2.5;
