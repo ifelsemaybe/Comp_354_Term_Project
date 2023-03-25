@@ -12,7 +12,13 @@ public class Math_Functions {
 
         }
 
-//        return pi/2 - x - (x * x * x)/6 - (3 * x * x * x * x * x)/40 - (5 * x * x * x * x * x * x * x)/112 - (35 * x * x * x * x * x * x * x * x * x)/1152 - (63 * x * x * x * x * x * x * x * x * x * x * x)/2816 - (231 * x * x * x * x * x * x * x * x * x * x * x * x * x)/13312 - (143 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/10240 - (6435 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/557056 - (12155 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/1245184;
+        if(x > - 0.922 && x < 0.922){
+
+            //Taylor Series Expansion
+
+            return pi/2 - x - (x * x * x)/6 - (3 * x * x * x * x * x)/40 - (5 * x * x * x * x * x * x * x)/112 - (35 * x * x * x * x * x * x * x * x * x)/1152 - (63 * x * x * x * x * x * x * x * x * x * x * x)/2816 - (231 * x * x * x * x * x * x * x * x * x * x * x * x * x)/13312 - (143 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/10240 - (6435 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/557056 - (12155 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/1245184;
+
+        }
 
         double a = -0.939115566365855;
         double b = 0.9217841528914573;

@@ -8,7 +8,7 @@ public class Driver {
 
         try{
 
-            System.out.println(m.arccos(0.98));
+            System.out.println(m.arccos(0.80));
 
         }
 
