@@ -9,14 +9,17 @@ public class Driver {
 
         Math_Functions m = new Math_Functions();
 
-        double [] x = new double[]{1,2,3,4,5,6,7,8,9,10,1.4};
-        double mad = m.MAD(x);
-        System.out.println(mad);
-        m.arccos(5);
-        
-        // Examples of ab function
-        System.out.println(m.ab(-2.4, 1.32, 3.6));
-        System.out.println(m.ab(2, 3, 4));
+        try{
+
+            System.out.println(m.arccos(0.80));
+
+        }
+
+        catch (IllegalArgumentException ex){
+
+            System.out.println(ex.getMessage());
+
+        }
 
         System.out.println(BigDecimal.valueOf(m.log(10,0.9999999)).toPlainString());
         System.out.println(BigDecimal.valueOf(m.log(10,1000000000)).toPlainString());
