@@ -27,5 +27,16 @@ public class Driver {
         System.out.println(BigDecimal.valueOf(m.log(1999999999,10)).toPlainString());
         System.out.println(BigDecimal.valueOf(m.log(10,1999999999E24)).toPlainString());
         System.out.println(BigDecimal.valueOf(m.log(1999999999,-10)).toPlainString());
+
+        // Exponentiate function examples
+        System.out.println("2^3 " + m.exponentiate(2, 3)); // 8.0
+        System.out.println(m.exponentiate(3, -2)); // 0.1111111111111111
+        System.out.println(m.exponentiate(2, 0.5)); // 1.4142135623730951
+        System.out.println(m.exponentiate(-2, 3)); // -8.0
+        try {
+            System.out.println(m.exponentiate(-2, 0.5));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
