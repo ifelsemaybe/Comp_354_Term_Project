@@ -3,6 +3,7 @@ package com.company;
 import static java.util.AbstractMap.SimpleEntry;
 public class Math_Functions {
     public static final double LN10 = 2.30258509299;
+    public static final double e = 2.7182818284;
     double arccos(double x){ //Alexandar Petrov
 
         double answer = 2.5;
@@ -11,12 +12,71 @@ public class Math_Functions {
 
     }
 
-    double ab(double x){ //Jeremy Piperni
+    /**
+     * Exponential Growth/Decay function
+     * a must be a real number not equal to 0
+     * b must be a positive real number not equal to 1
+     * 
+     * @param a initial value
+     * @param b growth/decay rate
+     * @param x exponent of b
+     * @return returns a * b^x
+     */
+    double ab(double a, double b, double x){ //Jeremy Piperni
 
-        double answer = 2.5;
+        if (a == 0) {
+        	throw new IllegalArgumentException("a must be a real number not equal to 0");
+        } else if (b == 1 || b <= 0) {
+        	throw new IllegalArgumentException("b must be a positive real number not equal to 1");
+        } else {
+        	return a * pow(b,x);
+        }
 
-        return answer;
-
+    }
+    
+    /**
+     * INTERMEDIATE FUNCTION
+     * Returns the result of x^y
+     * 
+     * @param x base of y
+     * @param y exponent of x
+     * @return returns x^y
+     */
+    private double pow(double x, double y) {
+    	return exp(y * log(e,x));
+    }
+    
+    /**
+     * INTERMEDIATE FUNCTION
+     * Returns the result of e^x
+     * 
+     * @param x the exponent of e
+     * @return the result of e^x
+     */
+    private double exp(double x) {
+    	double value = 1;
+    	
+    	// Calculate integer value of x
+    	int valueInt = (int) x;
+    	if (x > 0) {
+    		for (int i = 0; i < valueInt; i++) {
+        		value = value * e;
+        	}
+    	} else if (x < 0) {
+    		for (int i = 0; i > valueInt; i--) {
+        		value = value * (1 / e);
+        	}
+    	}
+    	
+    	// Calculate decimal value of x
+    	double valueDecimal = x - valueInt;
+    	double valueCorrection = 1 + valueDecimal * (1 + (valueDecimal / 2) * (1 + (valueDecimal / 3) * (1 + (valueDecimal / 4) *
+    			(1 + (valueDecimal / 5) * (1 + (valueDecimal / 6) * (1 + (valueDecimal / 7) * (1 + (valueDecimal / 8) *
+    			(1 + (valueDecimal / 9) * (1 + (valueDecimal / 10) * (1 + (valueDecimal / 11) * (1 + (valueDecimal / 12) *
+    			(1 + (valueDecimal / 13) * (1 + (valueDecimal / 14) * (1 + (valueDecimal / 15) * (1 + (valueDecimal / 16))))))))))))))));
+    	
+    	return value * valueCorrection;
+    	
     }
 
     /**

@@ -11,6 +11,10 @@ public class Driver {
         double mad = m.MAD(x);
         System.out.println(mad);
         m.arccos(5);
+        
+        // Examples of ab function
+        System.out.println(m.ab(-2.4, 1.32, 3.6));
+        System.out.println(m.ab(2, 3, 4));
 
         System.out.println(BigDecimal.valueOf(m.log(10,0.9999999)).toPlainString());
         System.out.println(BigDecimal.valueOf(m.log(10,1000000000)).toPlainString());
