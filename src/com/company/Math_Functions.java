@@ -187,7 +187,24 @@ public class Math_Functions {
      * @return returns x^y
      */
     String pow(double x, double y) { // Kirk
-        return Double.toString(exp(y * Double.parseDouble(log(e, x))));
+    	if (x < 0 && (y % 1) == 0) {
+    		String oddOrEven = "";
+    		if (y % 2 == 0) {
+    			oddOrEven = oddOrEven + "even";
+    		} else {
+    			oddOrEven = oddOrEven + "odd";
+    		}
+    		if (oddOrEven.equals("even")) {
+    			return Double.toString(exp(y * Double.parseDouble(log(e, abs(x)))));
+    		} else {
+    			double value = exp(y * Double.parseDouble(log(e, abs(x))));
+    			return "-" + Double.toString(value);
+    		}
+    	} else if (x > 0) {
+    		return Double.toString(exp(y * Double.parseDouble(log(e, x))));
+    	} else {
+    		return "ERROR: x cannot be negative if y is not an integer";
+    	}
     }
     
     /**
