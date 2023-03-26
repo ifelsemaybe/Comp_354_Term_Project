@@ -2,7 +2,7 @@ package com.company;
 
 import static java.util.AbstractMap.SimpleEntry;
 
-public class Math_functions_work {
+public class Math_Functions {
     public static final double LN10 = 2.30258509299;
     public static final double e = 2.7182818284;
 
@@ -14,13 +14,13 @@ public class Math_functions_work {
      * @param x
      * @return ArcCos of x
      */
-    double arccos(double x) { // Alexandar Petrov
+    String arccos(double x) { // Alexandar Petrov
 
         double pi = 3.1415926535897932;
 
         if (x > 1 || x < -1){
 
-            throw new IllegalArgumentException("Math Error: x must follow -1 ≤ x ≥ 1, domain rule");
+            return ("ERROR: x must be between -1 and 1");
 
         }
 
@@ -28,7 +28,7 @@ public class Math_functions_work {
 
             //Taylor Series Expansion
 
-            return pi/2 - x - (x * x * x)/6 - (3 * x * x * x * x * x)/40 - (5 * x * x * x * x * x * x * x)/112 - (35 * x * x * x * x * x * x * x * x * x)/1152 - (63 * x * x * x * x * x * x * x * x * x * x * x)/2816 - (231 * x * x * x * x * x * x * x * x * x * x * x * x * x)/13312 - (143 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/10240 - (6435 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/557056 - (12155 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/1245184;
+            return Double.toString(pi/2 - x - (x * x * x)/6 - (3 * x * x * x * x * x)/40 - (5 * x * x * x * x * x * x * x)/112 - (35 * x * x * x * x * x * x * x * x * x)/1152 - (63 * x * x * x * x * x * x * x * x * x * x * x)/2816 - (231 * x * x * x * x * x * x * x * x * x * x * x * x * x)/13312 - (143 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/10240 - (6435 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/557056 - (12155 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/1245184);
 
         }
 
@@ -37,7 +37,7 @@ public class Math_functions_work {
         double c = -1.2845906244690837;
         double d = 0.295624144969963174;
 
-        return pi/2 + (a * x + b * x * x * x)/(1 + c * x * x + d * x * x * x * x);
+        return Double.toString(pi/2 + (a * x + b * x * x * x)/(1 + c * x * x + d * x * x * x * x));
 
     }
 
@@ -52,14 +52,14 @@ public class Math_functions_work {
      * @param x exponent of b
      * @return returns a * b^x
      */
-    double ab(double a, double b, double x) { // Jeremy Piperni
+    String ab(double a, double b, double x) { // Jeremy Piperni
 
         if (a == 0) {
-            throw new IllegalArgumentException("a must be a real number not equal to 0");
+            return "ERROR: a must be a real number not equal to 0";
         } else if (b == 1 || b <= 0) {
-            throw new IllegalArgumentException("b must be a positive real number not equal to 1");
+            return "ERROR: b must be a positive real number not equal to 1";
         } else {
-            return a * pow(b, x);
+            return Double.toString(a * Double.parseDouble(pow(b, x)));
         }
 
     }
@@ -75,14 +75,14 @@ public class Math_functions_work {
      * @param x    the argument of a logarithm
      * @return The log of base b of an argument x
      */
-    double log(double base, double x) { // Dany Pham
+    String log(double base, double x) { // Dany Pham
         if (x == 1) {
             // handles case where x is 1, because every base raised to the power 0 is equal
             // to 1
-            return 0.0;
+            return "0.0";
         } else if (x <= 0 || base <= 0 || base == 1) {
             // handles case where x is negative or 0, or if the base is invalid
-            throw new IllegalArgumentException("Undefined, argument and base cannot be <= 0, base can't be 1");
+            return "ERROR: parameters cannot be <= 0, base can't be 1";
         }
 
         // Get tuple (convergingX, k) such that x = convergingX * 10^(k)
@@ -94,7 +94,7 @@ public class Math_functions_work {
         double baseExponent = tupleBase.getValue();
 
         // Using ln(x) = ln(convergingX * 10^(k) = ln(convergingX) + k * ln(10)
-        return (ln(convergingX) + (argExponent * LN10)) / (ln(convergingBase) + (baseExponent * LN10));
+        return Double.toString((ln(convergingX) + (argExponent * LN10)) / (ln(convergingBase) + (baseExponent * LN10)));
 
     }
 
@@ -105,7 +105,7 @@ public class Math_functions_work {
      * @param x
      * @return the mean absolute deviation as a double
      */
-    double MAD(double[] x) { // Kevin Patel
+    String MAD(double[] x) { // Kevin Patel
         double sum = 0;
         double mean = 0;
         // array for absolute differences
@@ -120,7 +120,7 @@ public class Math_functions_work {
             sum += absDiff[i];
 
         // return the mean absolute deviation
-        return sum / absDiff.length;
+        return Double.toString(sum / absDiff.length);
     }
 
     /**
@@ -131,7 +131,7 @@ public class Math_functions_work {
      * @param x, an array representing unordered data
      * @return answer, the standard deviation of a population
      */
-    double std(double [] x){ //Benjamin Pizarro
+    String std(double[] x){ //Benjamin Pizarro
         double mean = 0;
         double variation = 0;
         double answer = 0;
@@ -141,7 +141,7 @@ public class Math_functions_work {
         	mean = mean + x[i];
         }
         mean = (mean / x.length);
-        System.out.println("mean: " + mean);
+        //System.out.println("mean: " + mean);
 
         //variation(σ^2) = Summation((x[i] - mean)^2) / x.length , from i = 0 to x.length
         for (int i = 0 ; i < x.length ; i++){
@@ -149,10 +149,10 @@ public class Math_functions_work {
         }
 
         variation = variation / x.length;
-        System.out.println("variation (σ^2): " + variation);
+        //System.out.println("variation (σ^2): " + variation);
 
         answer = sqr(variation); //σ = sqr(σ^2)
-        return answer;
+        return Double.toString(answer);
 
     }
 
@@ -163,7 +163,7 @@ public class Math_functions_work {
      * @param x
      * @return Sinh of x
      */
-    double sinh(double x){ //Miraj Patel
+    String sinh(double x){ //Miraj Patel
         double answer = 0.0;
         double term = x;
         double xSquared = x * x;
@@ -175,7 +175,7 @@ public class Math_functions_work {
             term *= xSquared / (2 * i * (2 * i + 1));
         }
 
-        return answer;
+        return Double.toString(answer);
     }
 
     /**
@@ -186,8 +186,8 @@ public class Math_functions_work {
      * @param y exponent of x
      * @return returns x^y
      */
-    double pow(double x, double y) { // Kirk
-        return exp(y * log(e, x));
+    String pow(double x, double y) { // Kirk
+        return Double.toString(exp(y * Double.parseDouble(log(e, x))));
     }
     
     /**
