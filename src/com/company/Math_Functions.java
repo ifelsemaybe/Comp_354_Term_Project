@@ -6,13 +6,21 @@ public class Math_Functions {
     public static final double LN10 = 2.30258509299;
     public static final double e = 2.7182818284;
 
-    double arccos(double x) { // Alexandar Petrov
+    /**
+     * Function 1
+     * ArcCos function
+     * x must be between -1 and 1
+     * 
+     * @param x
+     * @return ArcCos of x
+     */
+    String arccos(double x) { // Alexandar Petrov
 
         double pi = 3.1415926535897932;
 
         if (x > 1 || x < -1){
 
-            throw new IllegalArgumentException("Math Error: x must follow -1 ≤ x ≥ 1, domain rule");
+            return ("ERROR: x must be between -1 and 1");
 
         }
 
@@ -20,7 +28,7 @@ public class Math_Functions {
 
             //Taylor Series Expansion
 
-            return pi/2 - x - (x * x * x)/6 - (3 * x * x * x * x * x)/40 - (5 * x * x * x * x * x * x * x)/112 - (35 * x * x * x * x * x * x * x * x * x)/1152 - (63 * x * x * x * x * x * x * x * x * x * x * x)/2816 - (231 * x * x * x * x * x * x * x * x * x * x * x * x * x)/13312 - (143 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/10240 - (6435 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/557056 - (12155 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/1245184;
+            return Double.toString(pi/2 - x - (x * x * x)/6 - (3 * x * x * x * x * x)/40 - (5 * x * x * x * x * x * x * x)/112 - (35 * x * x * x * x * x * x * x * x * x)/1152 - (63 * x * x * x * x * x * x * x * x * x * x * x)/2816 - (231 * x * x * x * x * x * x * x * x * x * x * x * x * x)/13312 - (143 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/10240 - (6435 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/557056 - (12155 * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x * x)/1245184);
 
         }
 
@@ -29,11 +37,12 @@ public class Math_Functions {
         double c = -1.2845906244690837;
         double d = 0.295624144969963174;
 
-        return pi/2 + (a * x + b * x * x * x)/(1 + c * x * x + d * x * x * x * x);
+        return Double.toString(pi/2 + (a * x + b * x * x * x)/(1 + c * x * x + d * x * x * x * x));
 
     }
 
     /**
+     * Function 2
      * Exponential Growth/Decay function
      * a must be a real number not equal to 0
      * b must be a positive real number not equal to 1
@@ -43,30 +52,161 @@ public class Math_Functions {
      * @param x exponent of b
      * @return returns a * b^x
      */
-    double ab(double a, double b, double x) { // Jeremy Piperni
+    String ab(double a, double b, double x) { // Jeremy Piperni
 
         if (a == 0) {
-            throw new IllegalArgumentException("a must be a real number not equal to 0");
+            return "ERROR: a must be a real number not equal to 0";
         } else if (b == 1 || b <= 0) {
-            throw new IllegalArgumentException("b must be a positive real number not equal to 1");
+            return "ERROR: b must be a positive real number not equal to 1";
         } else {
-            return a * pow(b, x);
+            return Double.toString(a * Double.parseDouble(pow(b, x)));
         }
 
     }
 
     /**
-     * INTERMEDIATE FUNCTION
+     * Function 3
+     * We make use of our own natural logarithm approximation ln(x) and use Using
+     * ln(x) = ln(convergingX * 10^(k) = ln(convergingX) + k * ln(10).
+     * Indeed, ln(x) approximation converge when 0 < x < 2, so we need x to be in
+     * that range.
+     *
+     * @param base the base of a logarithm
+     * @param x    the argument of a logarithm
+     * @return The log of base b of an argument x
+     */
+    String log(double base, double x) { // Dany Pham
+        if (x == 1) {
+            // handles case where x is 1, because every base raised to the power 0 is equal
+            // to 1
+            return "0.0";
+        } else if (x <= 0 || base <= 0 || base == 1) {
+            // handles case where x is negative or 0, or if the base is invalid
+            return "ERROR: parameters cannot be <= 0, base can't be 1";
+        }
+
+        // Get tuple (convergingX, k) such that x = convergingX * 10^(k)
+        SimpleEntry<Double, Double> tupleArg = convertToConvergenceValue(x);
+        SimpleEntry<Double, Double> tupleBase = convertToConvergenceValue(base);
+        double convergingX = tupleArg.getKey();
+        double argExponent = tupleArg.getValue();
+        double convergingBase = tupleBase.getKey();
+        double baseExponent = tupleBase.getValue();
+
+        // Using ln(x) = ln(convergingX * 10^(k) = ln(convergingX) + k * ln(10)
+        return Double.toString((ln(convergingX) + (argExponent * LN10)) / (ln(convergingBase) + (baseExponent * LN10)));
+
+    }
+
+    /**
+     * Function 4
+     * Returns the mean absolute deviation of the input array
+     * 
+     * @param x
+     * @return the mean absolute deviation as a double
+     */
+    String MAD(double[] x) { // Kevin Patel
+        double sum = 0;
+        double mean = 0;
+        // array for absolute differences
+        double[] absDiff = new double[x.length];
+        mean = meanArray(x);
+
+        // calculate absolute difference for each element
+        for (int i = 0; i < x.length; i++)
+            absDiff[i] = abs(x[i] - mean);
+        // calculate sum of the absolute differences
+        for (int i = 0; i < absDiff.length; i++)
+            sum += absDiff[i];
+
+        // return the mean absolute deviation
+        return Double.toString(sum / absDiff.length);
+    }
+
+    /**
+     * Function 5
+     * Calculates the standard deviation of a population
+     * Calculates the average distancing of each of the value in parameter x
+     *
+     * @param x, an array representing unordered data
+     * @return answer, the standard deviation of a population
+     */
+    String std(double[] x){ //Benjamin Pizarro
+        double mean = 0;
+        double variation = 0;
+        double answer = 0;
+
+        //mean = summation(x[i]) / x.length, from i = 0 to x.length
+        for (int i = 0 ; i < x.length ; i++){
+        	mean = mean + x[i];
+        }
+        mean = (mean / x.length);
+        //System.out.println("mean: " + mean);
+
+        //variation(σ^2) = Summation((x[i] - mean)^2) / x.length , from i = 0 to x.length
+        for (int i = 0 ; i < x.length ; i++){
+            variation = variation + ((x[i] - mean) * (x[i] - mean));
+        }
+
+        variation = variation / x.length;
+        //System.out.println("variation (σ^2): " + variation);
+
+        answer = sqr(variation); //σ = sqr(σ^2)
+        return Double.toString(answer);
+
+    }
+
+    /**
+     * Function 6
+     * Calculates Sinh of x
+     * 
+     * @param x
+     * @return Sinh of x
+     */
+    String sinh(double x){ //Miraj Patel
+        double answer = 0.0;
+        double term = x;
+        double xSquared = x * x;
+
+        // Changing the condition of i (50) will change accuracy of result
+        // Increase it to make answer more precise
+        for (int i = 1; i < 1000; i++) {
+            answer += term;
+            term *= xSquared / (2 * i * (2 * i + 1));
+        }
+
+        return Double.toString(answer);
+    }
+
+    /**
+     * Function 7
      * Returns the result of x^y
      * 
      * @param x base of y
      * @param y exponent of x
      * @return returns x^y
      */
-    private double pow(double x, double y) {
-        return exp(y * log(e, x));
+    String pow(double x, double y) { // Kirk
+    	if (x < 0 && (y % 1) == 0) {
+    		String oddOrEven = "";
+    		if (y % 2 == 0) {
+    			oddOrEven = oddOrEven + "even";
+    		} else {
+    			oddOrEven = oddOrEven + "odd";
+    		}
+    		if (oddOrEven.equals("even")) {
+    			return Double.toString(exp(y * Double.parseDouble(log(e, abs(x)))));
+    		} else {
+    			double value = exp(y * Double.parseDouble(log(e, abs(x))));
+    			return "-" + Double.toString(value);
+    		}
+    	} else if (x > 0) {
+    		return Double.toString(exp(y * Double.parseDouble(log(e, x))));
+    	} else {
+    		return "ERROR: x cannot be negative if y is not an integer";
+    	}
     }
-
+    
     /**
      * INTERMEDIATE FUNCTION
      * Returns the result of e^x
@@ -103,41 +243,9 @@ public class Math_Functions {
         return value * valueCorrection;
 
     }
-
+    
     /**
-     * We make use of our own natural logarithm approximation ln(x) and use Using
-     * ln(x) = ln(convergingX * 10^(k) = ln(convergingX) + k * ln(10).
-     * Indeed, ln(x) approximation converge when 0 < x < 2, so we need x to be in
-     * that range.
-     *
-     * @param base the base of a logarithm
-     * @param x    the argument of a logarithm
-     * @return The log of base b of an argument x
-     */
-    double log(double base, double x) { // Dany Pham
-        if (x == 1) {
-            // handles case where x is 1, because every base raised to the power 0 is equal
-            // to 1
-            return 0.0;
-        } else if (x <= 0 || base <= 0 || base == 1) {
-            // handles case where x is negative or 0, or if the base is invalid
-            throw new IllegalArgumentException("Undefined, argument and base cannot be <= 0, base can't be 1");
-        }
-
-        // Get tuple (convergingX, k) such that x = convergingX * 10^(k)
-        SimpleEntry<Double, Double> tupleArg = convertToConvergenceValue(x);
-        SimpleEntry<Double, Double> tupleBase = convertToConvergenceValue(base);
-        double convergingX = tupleArg.getKey();
-        double argExponent = tupleArg.getValue();
-        double convergingBase = tupleBase.getKey();
-        double baseExponent = tupleBase.getValue();
-
-        // Using ln(x) = ln(convergingX * 10^(k) = ln(convergingX) + k * ln(10)
-        return (ln(convergingX) + (argExponent * LN10)) / (ln(convergingBase) + (baseExponent * LN10));
-
-    }
-
-    /**
+     * INTERMEDIATE FUNCTION
      * Using Taylor series centered at 1 to approximate natural logarithm ln
      * Where the argument x converges in the interval 0 < x <= 2
      * We use 10 000 terms of the natural logarithm Taylor series, we can add more
@@ -171,7 +279,7 @@ public class Math_Functions {
 
         return answer;
     }
-
+    
     /**
      * Convert an argument x to its equivalent convergingX * 10^(k). A tuple
      * (convergingX , k) is returned.
@@ -205,8 +313,9 @@ public class Math_Functions {
 
         return new SimpleEntry<>(convergingX, exponent);
     }
-
+    
     /**
+     * INTERMEDIATE FUNCTION
      * Calculates the mean of an array of doubles
      * 
      * @param x
@@ -221,8 +330,9 @@ public class Math_Functions {
         // return the mean
         return sum / x.length;
     }
-
+    
     /**
+     * INTERMEDIATE FUNCTION
      * Returns the absolute value of the input without using Math library
      * 
      * @param x
@@ -233,65 +343,9 @@ public class Math_Functions {
             return -x;
         return x;
     }
-
+    
     /**
-     * Returns the mean absolute deviation of the input array
-     * 
-     * @param x
-     * @return the mean absolute deviation as a double
-     */
-    double MAD(double[] x) { // Kevin Patel
-        double sum = 0;
-        double mean = 0;
-        // array for absolute differences
-        double[] absDiff = new double[x.length];
-        mean = meanArray(x);
-
-        // calculate absolute difference for each element
-        for (int i = 0; i < x.length; i++)
-            absDiff[i] = abs(x[i] - mean);
-        // calculate sum of the absolute differences
-        for (int i = 0; i < absDiff.length; i++)
-            sum += absDiff[i];
-
-        // return the mean absolute deviation
-        return sum / absDiff.length;
-    }
-
-    /**
-     *Calculates the standard deviation of a population
-     *
-     * Calculates the average distancing of each of the value in parameter x
-     *
-     * @param x, an array representing unordered data
-     * @return answer, the standard deviation of a population
-     */
-    double σ(double [] x){ //Benjamin Pizarro
-        double mean = 0;
-        double variation = 0;
-        double answer = 0;
-
-        //mean = summation(x[i]) / x.length, from i = 0 to x.length
-        for (int i = 0 ; i < x.length ; i++){
-        	mean = mean + x[i];
-        }
-        mean = (mean / x.length);
-        System.out.println("mean: " + mean);
-
-        //variation(σ^2) = Summation((x[i] - mean)^2) / x.length , from i = 0 to x.length
-        for (int i = 0 ; i < x.length ; i++){
-            variation = variation + ((x[i] - mean) * (x[i] - mean));
-        }
-
-        variation = variation / x.length;
-        System.out.println("variation (σ^2): " + variation);
-
-        answer = sqr(variation); //σ = sqr(σ^2)
-        return answer;
-
-    }
-
-    /**
+     * INTERMEDIATE FUNCTION
      * Calculates the square root of a number using Newtons method.
      *
      * Let: x(0) = 1 be an initial guess for a zero(root)  or x-intercept
@@ -311,56 +365,5 @@ public class Math_Functions {
 		}
 		return x1;
 	}
-
-    double sinh(double x){ //Miraj Patel
-        double answer = 0.0;
-        double term = x;
-        double xSquared = x * x;
-
-        // Changing the condition of i (50) will change accuracy of result
-        // Increase it to make answer more precise
-        for (int i = 1; i < 1000; i++) {
-            answer += term;
-            term *= xSquared / (2 * i * (2 * i + 1));
-        }
-
-        return answer;
-    }
-
-    double exponentiate(double base, double exponent) { // Kirk
-
-        double result = 1.0;
-
-        // If exponent is 0, the result is always 1
-        if (exponent == 0) {
-            return result;
-        }
-
-        // If exponent is negative, invert the base and make exponent positive
-        if (exponent < 0) {
-            base = 1 / base;
-            exponent = -exponent;
-        }
-
-        // If exponent is a whole number
-        if (exponent == Math.floor(exponent)) {
-            // Multiply base by itself exponent times
-            for (int i = 0; i < exponent; i++) {
-                result *= base;
-            }
-        } else {
-            // If exponent is a fraction and base is negative, throw an exception
-            if (base < 0) {
-                throw new IllegalArgumentException(
-                        "Undefined result for a negative base raised to a fractional exponent");
-            }
-
-            // If exponent is a fraction, use the natural logarithm and exponentiation
-            // x^y = e^(y * ln(x))
-            result = Math.exp(exponent * ln(base));
-        }
-
-        return result;
-
-    }
+    
 }
