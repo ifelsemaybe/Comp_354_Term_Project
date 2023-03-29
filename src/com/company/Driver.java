@@ -52,18 +52,18 @@ public class Driver {
             		case "pow":
             			powCall(totalParameters);
             			break;
-					case "add":
-						addCall(totalParameters);
-						break;
-					case "subtract":
-						subCall(totalParameters);
-						break;
-					case "multiply":
-						multCall(totalParameters);
-						break;
-					case "divide":
-						divCall(totalParameters);
-						break;
+                case "add":
+                  addCall(totalParameters);
+                  break;
+                case "subtract":
+                  subCall(totalParameters);
+                  break;
+                case "multiply":
+                  multCall(totalParameters);
+                  break;
+                case "divide":
+                  divCall(totalParameters);
+                  break;
             		default:
             			System.out.println("Invalid function");
             		}
@@ -209,5 +209,4 @@ public class Driver {
 		} else {
 			System.out.println("ERROR: Wrong number of parameters");
 		}
-	}
 }

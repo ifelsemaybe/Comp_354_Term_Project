@@ -1,5 +1,7 @@
 package com.company;
+
 import static java.util.AbstractMap.SimpleEntry;
+
 public class Math_Functions {
     public static final double LN10 = 2.30258509299;
     public static final double e = 2.7182818284;
@@ -136,7 +138,9 @@ public class Math_Functions {
 
         //mean = summation(x[i]) / x.length, from i = 0 to x.length
         for (int i = 0 ; i < x.length ; i++){
+
             mean = mean + x[i];
+
         }
         mean = (mean / x.length);
         //System.out.println("mean: " + mean);
@@ -175,6 +179,7 @@ public class Math_Functions {
 
         return Double.toString(answer);
     }
+
 
 
     /**
@@ -242,6 +247,18 @@ public class Math_Functions {
         return value * valueCorrection;
 
     }
+    
+    /**
+     * INTERMEDIATE FUNCTION
+     * Using Taylor series centered at 1 to approximate natural logarithm ln
+     * Where the argument x converges in the interval 0 < x <= 2
+     * We use 10 000 terms of the natural logarithm Taylor series, we can add more
+     * term for more precision.
+     *
+     * @param x an argument to the natural log
+     * @return The natural logarithm of an argument x
+     */
+    double ln(double x) {
 
     /**
      * INTERMEDIATE FUNCTION
@@ -267,7 +284,6 @@ public class Math_Functions {
             for (int t1 = 0; t1 < n; t1++) { // We multiply x - 1, n times
                 term1 *= (x - 1.0);
             }
-
             // if-else to represent (-1)^(n+1) from the taylor series
             if ((n + 1) % 2 == 0) {
                 answer += (term1) / n;
@@ -416,4 +432,27 @@ public class Math_Functions {
         double sum = x / y;
         return Double.toString(sum);
     }
+    
+    /**
+     * INTERMEDIATE FUNCTION
+     * Calculates the square root of a number using Newtons method.
+     *
+     * Let: x(0) = 1 be an initial guess for a zero(root)  or x-intercept
+     * for g(x) = 0. square root of num is x = sqrt(num) --> (num^2) = x --> (x^2-num) = 0
+     * then, g(x) = (x^2-num) and g'(x) = 2x
+     * Newtons method X(k+1) = x(0) - (g(x(k))/g'(x(k))) for k = 0,1,2,...
+     *
+     * @param num, an argument to the square root function
+     * @return x1, the square root of num
+     *
+     * x1 represents X(k+1)
+     */
+    double sqr(double num) {
+		double x1 = 1;
+		for(int i = 1; i <= 10; i++) {
+			x1 = x1 - (((x1 * x1)- num)/ (2*x1));
+		}
+		return x1;
+	}
+    
 }
