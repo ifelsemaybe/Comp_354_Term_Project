@@ -10,7 +10,7 @@ public class Math_Functions {
      * Function 1
      * ArcCos function
      * x must be between -1 and 1
-     * 
+     *
      * @param x
      * @return ArcCos of x
      */
@@ -46,7 +46,7 @@ public class Math_Functions {
      * Exponential Growth/Decay function
      * a must be a real number not equal to 0
      * b must be a positive real number not equal to 1
-     * 
+     *
      * @param a initial value
      * @param b growth/decay rate
      * @param x exponent of b
@@ -101,7 +101,7 @@ public class Math_Functions {
     /**
      * Function 4
      * Returns the mean absolute deviation of the input array
-     * 
+     *
      * @param x
      * @return the mean absolute deviation as a double
      */
@@ -138,7 +138,9 @@ public class Math_Functions {
 
         //mean = summation(x[i]) / x.length, from i = 0 to x.length
         for (int i = 0 ; i < x.length ; i++){
-        	mean = mean + x[i];
+
+            mean = mean + x[i];
+
         }
         mean = (mean / x.length);
         //System.out.println("mean: " + mean);
@@ -159,7 +161,7 @@ public class Math_Functions {
     /**
      * Function 6
      * Calculates Sinh of x
-     * 
+     *
      * @param x
      * @return Sinh of x
      */
@@ -178,39 +180,41 @@ public class Math_Functions {
         return Double.toString(answer);
     }
 
+
+
     /**
      * Function 7
      * Returns the result of x^y
-     * 
+     *
      * @param x base of y
      * @param y exponent of x
      * @return returns x^y
      */
     String pow(double x, double y) { // Kirk
-    	if (x < 0 && (y % 1) == 0) {
-    		String oddOrEven = "";
-    		if (y % 2 == 0) {
-    			oddOrEven = oddOrEven + "even";
-    		} else {
-    			oddOrEven = oddOrEven + "odd";
-    		}
-    		if (oddOrEven.equals("even")) {
-    			return Double.toString(exp(y * Double.parseDouble(log(e, abs(x)))));
-    		} else {
-    			double value = exp(y * Double.parseDouble(log(e, abs(x))));
-    			return "-" + Double.toString(value);
-    		}
-    	} else if (x > 0) {
-    		return Double.toString(exp(y * Double.parseDouble(log(e, x))));
-    	} else {
-    		return "ERROR: x cannot be negative if y is not an integer";
-    	}
+        if (x < 0 && (y % 1) == 0) {
+            String oddOrEven = "";
+            if (y % 2 == 0) {
+                oddOrEven = oddOrEven + "even";
+            } else {
+                oddOrEven = oddOrEven + "odd";
+            }
+            if (oddOrEven.equals("even")) {
+                return Double.toString(exp(y * Double.parseDouble(log(e, abs(x)))));
+            } else {
+                double value = exp(y * Double.parseDouble(log(e, abs(x))));
+                return "-" + Double.toString(value);
+            }
+        } else if (x > 0) {
+            return Double.toString(exp(y * Double.parseDouble(log(e, x))));
+        } else {
+            return "ERROR: x cannot be negative if y is not an integer";
+        }
     }
-    
+
     /**
      * INTERMEDIATE FUNCTION
      * Returns the result of e^x
-     * 
+     *
      * @param x the exponent of e
      * @return the result of e^x
      */
@@ -233,17 +237,29 @@ public class Math_Functions {
         double valueDecimal = x - valueInt;
         double valueCorrection = 1 + valueDecimal * (1 + (valueDecimal / 2)
                 * (1 + (valueDecimal / 3) * (1 + (valueDecimal / 4) *
-                        (1 + (valueDecimal / 5) * (1 + (valueDecimal / 6) * (1 + (valueDecimal / 7) * (1 + (valueDecimal
-                                / 8) *
-                                (1 + (valueDecimal / 9) * (1
-                                        + (valueDecimal / 10) * (1 + (valueDecimal / 11) * (1 + (valueDecimal / 12) *
-                                                (1 + (valueDecimal / 13) * (1 + (valueDecimal / 14) * (1
-                                                        + (valueDecimal / 15) * (1 + (valueDecimal / 16))))))))))))))));
+                (1 + (valueDecimal / 5) * (1 + (valueDecimal / 6) * (1 + (valueDecimal / 7) * (1 + (valueDecimal
+                        / 8) *
+                        (1 + (valueDecimal / 9) * (1
+                                + (valueDecimal / 10) * (1 + (valueDecimal / 11) * (1 + (valueDecimal / 12) *
+                                (1 + (valueDecimal / 13) * (1 + (valueDecimal / 14) * (1
+                                        + (valueDecimal / 15) * (1 + (valueDecimal / 16))))))))))))))));
 
         return value * valueCorrection;
 
     }
     
+    /**
+     * INTERMEDIATE FUNCTION
+     * Using Taylor series centered at 1 to approximate natural logarithm ln
+     * Where the argument x converges in the interval 0 < x <= 2
+     * We use 10 000 terms of the natural logarithm Taylor series, we can add more
+     * term for more precision.
+     *
+     * @param x an argument to the natural log
+     * @return The natural logarithm of an argument x
+     */
+    double ln(double x) {
+
     /**
      * INTERMEDIATE FUNCTION
      * Using Taylor series centered at 1 to approximate natural logarithm ln
@@ -268,7 +284,6 @@ public class Math_Functions {
             for (int t1 = 0; t1 < n; t1++) { // We multiply x - 1, n times
                 term1 *= (x - 1.0);
             }
-
             // if-else to represent (-1)^(n+1) from the taylor series
             if ((n + 1) % 2 == 0) {
                 answer += (term1) / n;
@@ -279,7 +294,7 @@ public class Math_Functions {
 
         return answer;
     }
-    
+
     /**
      * Convert an argument x to its equivalent convergingX * 10^(k). A tuple
      * (convergingX , k) is returned.
@@ -313,11 +328,11 @@ public class Math_Functions {
 
         return new SimpleEntry<>(convergingX, exponent);
     }
-    
+
     /**
      * INTERMEDIATE FUNCTION
      * Calculates the mean of an array of doubles
-     * 
+     *
      * @param x
      * @return the mean as a double
      */
@@ -330,11 +345,11 @@ public class Math_Functions {
         // return the mean
         return sum / x.length;
     }
-    
+
     /**
      * INTERMEDIATE FUNCTION
      * Returns the absolute value of the input without using Math library
-     * 
+     *
      * @param x
      * @return absolute value as double
      */
@@ -342,6 +357,80 @@ public class Math_Functions {
         if (x < 0)
             return -x;
         return x;
+    }
+
+    /**
+     * INTERMEDIATE FUNCTION
+     * Calculates the square root of a number using Newtons method.
+     *
+     * Let: x(0) = 1 be an initial guess for a zero(root)  or x-intercept
+     * for g(x) = 0. square root of num is x = sqrt(num) --> (num^2) = x --> (x^2-num) = 0
+     * then, g(x) = (x^2-num) and g'(x) = 2x
+     * Newtons method X(k+1) = x(0) - (g(x(k))/g'(x(k))) for k = 0,1,2,...
+     *
+     * @param num, an argument to the square root function
+     * @return x1, the square root of num
+     *
+     * x1 represents X(k+1)
+     */
+    double sqr(double num) {
+        double x1 = 1;
+        for(int i = 1; i <= 10; i++) {
+            x1 = x1 - (((x1 * x1)- num)/ (2*x1));
+        }
+        return x1;
+    }
+
+    /**
+     * Returns the result of x + y
+     *
+     * @param x the fist value to add
+     * @param y the second value to add
+     * @return the result of x + y
+     */
+    String add(double x, double y)
+    {
+        double sum = x + y;
+        return Double.toString(sum);
+    }
+
+    /**
+     * Returns the result of x - y
+     *
+     * @param x the value to subtract from
+     * @param y the value of the subtraction
+     * @return the result of x - y
+     */
+    String subtract(double x, double y)
+    {
+        double sum = x - y;
+        return Double.toString(sum);
+    }
+
+    /**
+     * Returns the result of x * y
+     *
+     * @param x the fist value to multiply
+     * @param y the second value to multiply
+     * @return the result of x * y
+     */
+    String multiply(double x, double y)
+    {
+        double sum = x * y;
+        return Double.toString(sum);
+    }
+
+    /**
+     * Returns the result of x / y
+     *
+     * @param x the value to divide from
+     * @param y the value of the division
+     * @return the result of x / y
+     */
+    String divide(double x, double y)
+    {
+        double sum = x / y;
+        return Double.toString(sum);
     }
     
     /**

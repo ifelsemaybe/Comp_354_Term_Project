@@ -3,8 +3,9 @@ package com.company;
 import java.util.Scanner;
 
 public class Driver {
+
 	static Math_Functions mathFunctions = new Math_Functions();
-	
+
     public static void main(String[] args) {
         boolean notEnded = true;
         Scanner scanner = new Scanner(System.in);
@@ -51,6 +52,18 @@ public class Driver {
             		case "pow":
             			powCall(totalParameters);
             			break;
+                case "add":
+                  addCall(totalParameters);
+                  break;
+                case "subtract":
+                  subCall(totalParameters);
+                  break;
+                case "multiply":
+                  multCall(totalParameters);
+                  break;
+                case "divide":
+                  divCall(totalParameters);
+                  break;
             		default:
             			System.out.println("Invalid function");
             		}
@@ -147,5 +160,53 @@ public class Driver {
     	} else {
     		System.out.println("ERROR: Wrong number of parameters");
     	}
+
     }
+
+	static void addCall(String totalParameters) {
+		String[] parameters = totalParameters.split(",");
+		if (parameters.length == 2) {
+			double x = Double.parseDouble(parameters[0]);
+			double y = Double.parseDouble(parameters[1]);
+			String result = mathFunctions.add(x,y);
+			System.out.println(result);
+		} else {
+			System.out.println("ERROR: Wrong number of parameters");
+		}
+	}
+
+	static void subCall(String totalParameters) {
+		String[] parameters = totalParameters.split(",");
+		if (parameters.length == 2) {
+			double x = Double.parseDouble(parameters[0]);
+			double y = Double.parseDouble(parameters[1]);
+			String result = mathFunctions.subtract(x,y);
+			System.out.println(result);
+		} else {
+			System.out.println("ERROR: Wrong number of parameters");
+		}
+	}
+
+	static void multCall(String totalParameters) {
+		String[] parameters = totalParameters.split(",");
+		if (parameters.length == 2) {
+			double x = Double.parseDouble(parameters[0]);
+			double y = Double.parseDouble(parameters[1]);
+			String result = mathFunctions.multiply(x,y);
+			System.out.println(result);
+		} else {
+			System.out.println("ERROR: Wrong number of parameters");
+		}
+	}
+
+	static void divCall(String totalParameters) {
+		String[] parameters = totalParameters.split(",");
+		if (parameters.length == 2) {
+			double x = Double.parseDouble(parameters[0]);
+			double y = Double.parseDouble(parameters[1]);
+			String result = mathFunctions.divide(x,y);
+			System.out.println(result);
+		} else {
+			System.out.println("ERROR: Wrong number of parameters");
+		}
 }
