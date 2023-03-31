@@ -1,5 +1,7 @@
 package com.company;
 
+import javax.management.RuntimeOperationsException;
+
 import static java.util.AbstractMap.SimpleEntry;
 
 public class Math_Functions {
@@ -362,6 +364,7 @@ public class Math_Functions {
      * INTERMEDIATE FUNCTION
      * Calculates the square root of a number using Newtons method.
      *
+     * Calculates the average distancing of each of the values in parameter x
      * Let: x(0) = 1 be an initial guess for a zero(root)  or x-intercept
      * for g(x) = 0. square root of num is x = sqrt(num) --> (num^2) = x --> (x^2-num) = 0
      * then, g(x) = (x^2-num) and g'(x) = 2x
@@ -372,6 +375,22 @@ public class Math_Functions {
      *
      * x1 represents X(k+1)
      */
+    double σ(double [] x){ //Benjamin Pizarro
+        double mean = 0;
+        double variation = 0;
+        double answer = 0;
+
+        // mean = summation(x[i]) / x.length, from i = 0 to x.length
+        for (int i = 0 ; i < x.length ; i++){
+        	mean = mean + x[i];
+        }
+        mean = (mean / x.length);
+        System.out.println("mean: " + mean);
+
+        // variation(σ^2) = Summation((x[i] - mean)^2) / x.length , from i = 0 to x.length
+        for (int i = 0 ; i < x.length ; i++){
+            variation = variation + ((x[i] - mean) * (x[i] - mean)); // calculating sum of residuals
+            
     double sqr(double num) {
         double x1 = 1;
         for(int i = 1; i <= 10; i++) {
@@ -446,6 +465,25 @@ public class Math_Functions {
      *
      * x1 represents X(k+1)
      */
-
-    
+    double sqr(double num) {
+        final double EPSILON = 0.0000001;
+        double x1 = 1;
+        double x2 = 0;
+        if(num < 0) throw new IllegalArgumentException("square root of a number cannot be negative");
+        try {
+            for(int i = 1; i <= 30; i++) {
+                // Stop iterating if g'(x) will overflow
+                if(x1 == Double.NEGATIVE_INFINITY)
+                    break;
+                x2 = x1 - (((x1 * x1)- num)/ (2*x1));
+                x1 = x2 - (((x2 * x2)- num)/ (2*x2));
+                // Stop iterating when x1 is within tolerance
+                if(abs(x1 - x2) <= EPSILON)
+                    break;
+            }
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+        return x1;
+	}
 }
