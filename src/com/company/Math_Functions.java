@@ -258,7 +258,6 @@ public class Math_Functions {
      * @param x an argument to the natural log
      * @return The natural logarithm of an argument x
      */
-    double ln(double x) {
 
     /**
      * INTERMEDIATE FUNCTION
@@ -447,12 +446,6 @@ public class Math_Functions {
      *
      * x1 represents X(k+1)
      */
-    double sqr(double num) {
-		double x1 = 1;
-		for(int i = 1; i <= 10; i++) {
-			x1 = x1 - (((x1 * x1)- num)/ (2*x1));
-		}
-		return x1;
-	}
+
     
 }
