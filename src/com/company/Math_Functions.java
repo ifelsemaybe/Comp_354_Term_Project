@@ -250,18 +250,7 @@ public class Math_Functions {
 
     }
     
-    /**
-     * INTERMEDIATE FUNCTION
-     * Using Taylor series centered at 1 to approximate natural logarithm ln
-     * Where the argument x converges in the interval 0 < x <= 2
-     * We use 10 000 terms of the natural logarithm Taylor series, we can add more
-     * term for more precision.
-     *
-     * @param x an argument to the natural log
-     * @return The natural logarithm of an argument x
-     */
-    double ln(double x) {
-
+    
     /**
      * INTERMEDIATE FUNCTION
      * Using Taylor series centered at 1 to approximate natural logarithm ln
@@ -391,14 +380,10 @@ public class Math_Functions {
         // variation(σ^2) = Summation((x[i] - mean)^2) / x.length , from i = 0 to x.length
         for (int i = 0 ; i < x.length ; i++){
             variation = variation + ((x[i] - mean) * (x[i] - mean)); // calculating sum of residuals
-            
-    double sqr(double num) {
-        double x1 = 1;
-        for(int i = 1; i <= 10; i++) {
-            x1 = x1 - (((x1 * x1)- num)/ (2*x1));
-        }
-        return x1;
+	}
     }
+            
+    
 
     /**
      * Returns the result of x + y
