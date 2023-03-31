@@ -249,17 +249,6 @@ public class Math_Functions {
         return value * valueCorrection;
 
     }
-    
-    /**
-     * INTERMEDIATE FUNCTION
-     * Using Taylor series centered at 1 to approximate natural logarithm ln
-     * Where the argument x converges in the interval 0 < x <= 2
-     * We use 10 000 terms of the natural logarithm Taylor series, we can add more
-     * term for more precision.
-     *
-     * @param x an argument to the natural log
-     * @return The natural logarithm of an argument x
-     */
 
     /**
      * INTERMEDIATE FUNCTION
@@ -360,130 +349,92 @@ public class Math_Functions {
         return x;
     }
 
-    /**
-     * INTERMEDIATE FUNCTION
-     * Calculates the square root of a number using Newtons method.
-     *
-     * Calculates the average distancing of each of the values in parameter x
-     * Let: x(0) = 1 be an initial guess for a zero(root)  or x-intercept
-     * for g(x) = 0. square root of num is x = sqrt(num) --> (num^2) = x --> (x^2-num) = 0
-     * then, g(x) = (x^2-num) and g'(x) = 2x
-     * Newtons method X(k+1) = x(0) - (g(x(k))/g'(x(k))) for k = 0,1,2,...
-     *
-     * @param num, an argument to the square root function
-     * @return x1, the square root of num
-     *
-     * x1 represents X(k+1)
-     */
-    double σ(double [] x){ //Benjamin Pizarro
-        double mean = 0;
-        double variation = 0;
-        double answer = 0;
-
-        // mean = summation(x[i]) / x.length, from i = 0 to x.length
-        for (int i = 0 ; i < x.length ; i++){
-        	mean = mean + x[i];
-        }
-        mean = (mean / x.length);
-        System.out.println("mean: " + mean);
-
-        // variation(σ^2) = Summation((x[i] - mean)^2) / x.length , from i = 0 to x.length
-        for (int i = 0 ; i < x.length ; i++){
-            variation = variation + ((x[i] - mean) * (x[i] - mean)); // calculating sum of residuals
-            
-    double sqr(double num) {
-        double x1 = 1;
-        for(int i = 1; i <= 10; i++) {
-            x1 = x1 - (((x1 * x1)- num)/ (2*x1));
-        }
-        return x1;
-    }
-
-    /**
-     * Returns the result of x + y
-     *
-     * @param x the fist value to add
-     * @param y the second value to add
-     * @return the result of x + y
-     */
-    String add(double x, double y)
-    {
-        double sum = x + y;
-        return Double.toString(sum);
-    }
-
-    /**
-     * Returns the result of x - y
-     *
-     * @param x the value to subtract from
-     * @param y the value of the subtraction
-     * @return the result of x - y
-     */
-    String subtract(double x, double y)
-    {
-        double sum = x - y;
-        return Double.toString(sum);
-    }
-
-    /**
-     * Returns the result of x * y
-     *
-     * @param x the fist value to multiply
-     * @param y the second value to multiply
-     * @return the result of x * y
-     */
-    String multiply(double x, double y)
-    {
-        double sum = x * y;
-        return Double.toString(sum);
-    }
-
-    /**
-     * Returns the result of x / y
-     *
-     * @param x the value to divide from
-     * @param y the value of the division
-     * @return the result of x / y
-     */
-    String divide(double x, double y)
-    {
-        double sum = x / y;
-        return Double.toString(sum);
-    }
-    
-    /**
-     * INTERMEDIATE FUNCTION
-     * Calculates the square root of a number using Newtons method.
-     *
-     * Let: x(0) = 1 be an initial guess for a zero(root)  or x-intercept
-     * for g(x) = 0. square root of num is x = sqrt(num) --> (num^2) = x --> (x^2-num) = 0
-     * then, g(x) = (x^2-num) and g'(x) = 2x
-     * Newtons method X(k+1) = x(0) - (g(x(k))/g'(x(k))) for k = 0,1,2,...
-     *
-     * @param num, an argument to the square root function
-     * @return x1, the square root of num
-     *
-     * x1 represents X(k+1)
-     */
-    double sqr(double num) {
-        final double EPSILON = 0.0000001;
-        double x1 = 1;
-        double x2 = 0;
-        if(num < 0) throw new IllegalArgumentException("square root of a number cannot be negative");
-        try {
-            for(int i = 1; i <= 30; i++) {
-                // Stop iterating if g'(x) will overflow
-                if(x1 == Double.NEGATIVE_INFINITY)
-                    break;
-                x2 = x1 - (((x1 * x1)- num)/ (2*x1));
-                x1 = x2 - (((x2 * x2)- num)/ (2*x2));
-                // Stop iterating when x1 is within tolerance
-                if(abs(x1 - x2) <= EPSILON)
-                    break;
+            /**
+             * Returns the result of x + y
+             *
+             * @param x the fist value to add
+             * @param y the second value to add
+             * @return the result of x + y
+             */
+            String add ( double x, double y)
+            {
+                double sum = x + y;
+                return Double.toString(sum);
             }
-        }catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
+
+            /**
+             * Returns the result of x - y
+             *
+             * @param x the value to subtract from
+             * @param y the value of the subtraction
+             * @return the result of x - y
+             */
+            String subtract ( double x, double y)
+            {
+                double sum = x - y;
+                return Double.toString(sum);
+            }
+
+            /**
+             * Returns the result of x * y
+             *
+             * @param x the fist value to multiply
+             * @param y the second value to multiply
+             * @return the result of x * y
+             */
+            String multiply ( double x, double y)
+            {
+                double sum = x * y;
+                return Double.toString(sum);
+            }
+
+            /**
+             * Returns the result of x / y
+             *
+             * @param x the value to divide from
+             * @param y the value of the division
+             * @return the result of x / y
+             */
+            String divide ( double x, double y)
+            {
+                double sum = x / y;
+                return Double.toString(sum);
+            }
+
+            /**
+             * INTERMEDIATE FUNCTION
+             * Calculates the square root of a number using Newtons method.
+             *
+             * Let: x(0) = 1 be an initial guess for a zero(root)  or x-intercept
+             * for g(x) = 0. square root of num is x = sqrt(num) --> (num^2) = x --> (x^2-num) = 0
+             * then, g(x) = (x^2-num) and g'(x) = 2x
+             * Newtons method X(k+1) = x(0) - (g(x(k))/g'(x(k))) for k = 0,1,2,...
+             *
+             * @param num, an argument to the square root function
+             * @return x1, the square root of num
+             *
+             * x1 represents X(k+1)
+             */
+            double sqr ( double num){
+                final double EPSILON = 0.0000001;
+                double x1 = 1;
+                double x2 = 0;
+                if (num < 0) throw new IllegalArgumentException("square root of a number cannot be negative");
+                try {
+                    for (int i = 1; i <= 30; i++) {
+                        // Stop iterating if g'(x) will overflow
+                        if (x1 == Double.NEGATIVE_INFINITY)
+                            break;
+                        x2 = x1 - (((x1 * x1) - num) / (2 * x1));
+                        x1 = x2 - (((x2 * x2) - num) / (2 * x2));
+                        // Stop iterating when x1 is within tolerance
+                        if (abs(x1 - x2) <= EPSILON)
+                            break;
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+                return x1;
+            }
         }
-        return x1;
-	}
-}
+
