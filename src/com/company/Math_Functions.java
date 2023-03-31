@@ -1,5 +1,7 @@
 package com.company;
 
+import javax.management.RuntimeOperationsException;
+
 import static java.util.AbstractMap.SimpleEntry;
 public class Math_Functions {
     public static final double LN10 = 2.30258509299;
@@ -219,7 +221,7 @@ public class Math_Functions {
     /**
      *Calculates the standard deviation of a population
      *
-     * Calculates the average distancing of each of the value in parameter x
+     * Calculates the average distancing of each of the values in parameter x
      *
      * @param x, an array representing unordered data
      * @return answer, the standard deviation of a population
@@ -229,16 +231,16 @@ public class Math_Functions {
         double variation = 0;
         double answer = 0;
 
-        //mean = summation(x[i]) / x.length, from i = 0 to x.length
+        // mean = summation(x[i]) / x.length, from i = 0 to x.length
         for (int i = 0 ; i < x.length ; i++){
         	mean = mean + x[i];
         }
         mean = (mean / x.length);
         System.out.println("mean: " + mean);
 
-        //variation(σ^2) = Summation((x[i] - mean)^2) / x.length , from i = 0 to x.length
+        // variation(σ^2) = Summation((x[i] - mean)^2) / x.length , from i = 0 to x.length
         for (int i = 0 ; i < x.length ; i++){
-            variation = variation + ((x[i] - mean) * (x[i] - mean));
+            variation = variation + ((x[i] - mean) * (x[i] - mean)); // calculating sum of residuals
         }
 
         variation = variation / x.length;
@@ -263,11 +265,25 @@ public class Math_Functions {
      * x1 represents X(k+1)
      */
     double sqr(double num) {
-		double x1 = 1;
-		for(int i = 1; i <= 10; i++) {
-			x1 = x1 - (((x1 * x1)- num)/ (2*x1));
-		}
-		return x1;
+        final double EPSILON = 0.0000001;
+        double x1 = 1;
+        double x2 = 0;
+        if(num < 0) throw new IllegalArgumentException("square root of a number cannot be negative");
+        try {
+            for(int i = 1; i <= 30; i++) {
+                // Stop iterating if g'(x) will overflow
+                if(x1 == Double.NEGATIVE_INFINITY)
+                    break;
+                x2 = x1 - (((x1 * x1)- num)/ (2*x1));
+                x1 = x2 - (((x2 * x2)- num)/ (2*x2));
+                // Stop iterating when x1 is within tolerance
+                if(abs(x1 - x2) <= EPSILON)
+                    break;
+            }
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+        return x1;
 	}
 
     double sinh(double x){ //Miraj Patel
