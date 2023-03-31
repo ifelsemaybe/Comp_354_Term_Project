@@ -1,33 +1,212 @@
 package com.company;
 
-import java.math.BigDecimal;
+import java.util.Scanner;
 
 public class Driver {
 
+	static Math_Functions mathFunctions = new Math_Functions();
+
     public static void main(String[] args) {
-        double []  A = {36.67, 8.34, 41.67, 43.34, 71.67, 63.34, 76.67, 56.67, 28.34, 33.34, 63.34, 78.34, 63.34, 71.67, 83.34, 56.67, 46.67, 58.34, 78.34, 73.34, 61.67, 26.67, 53.34, 51.67, 18.34, 31.67, 66.67, 63.34, 83.34, 53.34, 43.34, 36.67, 31.67, 71.67, 66.67, 78.34, 81.67, 48.34, 71.67, 76.67, 61.67, 56.67, 71.67, 63.34, 46.67, 83.34, 71.67, 63.34, 61.67, 8.34, 73.34, 76.67, 73.34, 56.67, 63.34, 68.34, 71.67, 63.34, 73.34, 73.34, 53.34, 71.67, 56.67, 86.67, 93.34, 83.34};
-
-        Math_Functions m = new Math_Functions();
-
-        double [] x = new double[]{1,2,3,4,5,6,7,8,9,10,1.4};
-        double mad = m.MAD(x);
-        System.out.println(mad);
-        m.arccos(5);
+        boolean notEnded = true;
+        Scanner scanner = new Scanner(System.in);
         
-        // Examples of ab function
-        System.out.println(m.ab(-2.4, 1.32, 3.6));
-        System.out.println(m.ab(2, 3, 4));
-
-        System.out.println(BigDecimal.valueOf(m.log(10,0.9999999)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(10,1000000000)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(10,41)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(0.2,5)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(5,0.1)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(5,0.000000000000001)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(1000000000,100)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(10,1999999999)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(1999999999,10)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(10,1999999999E24)).toPlainString());
-        System.out.println(BigDecimal.valueOf(m.log(1999999999,-10)).toPlainString());
+        while (notEnded) {
+        	
+        	System.out.print("Enter: ");
+        	String userInput = scanner.nextLine();
+        	
+        	// ends program
+        	if (userInput.equals("end")) {
+        		notEnded = false;
+        	}
+        	
+        	// calls proper function
+        	if (notEnded) {
+        		String[] userInputArray = userInput.split("\\(");
+        		
+        		if (userInputArray.length == 1) {
+        			System.out.println("Invalid input");
+        		} else {
+        			String function = userInputArray[0];
+            		String totalParameters = userInputArray[1].split("\\)")[0];
+            		
+            		switch(function) {
+            		case "arccos":
+            			arccosCall(totalParameters);
+            			break;
+            		case "ab":
+            			abCall(totalParameters);
+            			break;
+            		case "log":
+            			logCall(totalParameters);
+            			break;
+            		case "MAD":
+            			MADCall(totalParameters);
+            			break;
+            		case "std":
+            			stdCall(totalParameters);
+            			break;
+            		case "sinh":
+            			sinhCall(totalParameters);
+            			break;
+            		case "pow":
+            			powCall(totalParameters);
+            			break;
+                case "add":
+                  addCall(totalParameters);
+                  break;
+                case "subtract":
+                  subCall(totalParameters);
+                  break;
+                case "multiply":
+                  multCall(totalParameters);
+                  break;
+                case "divide":
+                  divCall(totalParameters);
+                  break;
+            		default:
+            			System.out.println("Invalid function");
+            		}
+        		}
+        	}
+        }
+        
+        System.out.println("Program has ended");
+        scanner.close();
+        
     }
+    
+    // Call to ArcCos function
+    static void arccosCall(String totalParameters) {
+    	String[] parameters = totalParameters.split(",");
+    	if (parameters.length == 1) {
+    		double x = Double.parseDouble(parameters[0]);
+    		String result = mathFunctions.arccos(x);
+    		System.out.println(result);
+    	} else {
+    		System.out.println("ERROR: Wrong number of parameters");
+    	}
+    }
+    
+    // Call to ab (growth/decay) function
+    static void abCall(String totalParameters) {
+    	String[] parameters = totalParameters.split(",");
+    	if (parameters.length == 3) {
+    		double a = Double.parseDouble(parameters[0]);
+    		double b = Double.parseDouble(parameters[1]);
+    		double x = Double.parseDouble(parameters[2]);
+    		String result = mathFunctions.ab(a, b, x);
+    		System.out.println(result);
+    	} else {
+    		System.out.println("ERROR: Wrong number of parameters");
+    	}
+    }
+    
+    // Call to log function
+    static void logCall(String totalParameters) {
+    	String[] parameters = totalParameters.split(",");
+    	if (parameters.length == 2) {
+    		double base = Double.parseDouble(parameters[0]);
+    		double x = Double.parseDouble(parameters[1]);
+    		String result = mathFunctions.log(base, x);
+    		System.out.println(result);
+    	} else {
+    		System.out.println("ERROR: Wrong number of parameters");
+    	}
+    }
+    
+    // Call to MAD function
+    static void MADCall(String totalParameters) {
+    	String[] parameters = totalParameters.split(",");
+    	double[] array = new double[parameters.length];
+    	for (int i = 0; i < array.length; i++) {
+    		array[i] = Double.parseDouble(parameters[i]);
+    	}
+    	String result = mathFunctions.MAD(array);
+    	System.out.println(result);
+    }
+    
+    // Call to std function
+    static void stdCall(String totalParameters) {
+    	String[] parameters = totalParameters.split(",");
+    	double[] array = new double[parameters.length];
+    	for (int i = 0; i < array.length; i++) {
+    		array[i] = Double.parseDouble(parameters[i]);
+    	}
+    	String result = mathFunctions.std(array);
+    	System.out.println(result);
+    }
+    
+    // Call to sinh function
+    static void sinhCall(String totalParameters) {
+    	String[] parameters = totalParameters.split(",");
+    	if (parameters.length == 1) {
+    		double x = Double.parseDouble(parameters[0]);
+    		String result = mathFunctions.sinh(x);
+    		System.out.println(result);
+    	} else {
+    		System.out.println("ERROR: Wrong number of parameters");
+    	}
+    }
+    
+    // Call to pow function
+    static void powCall(String totalParameters) {
+    	String[] parameters = totalParameters.split(",");
+    	if (parameters.length == 2) {
+    		double x = Double.parseDouble(parameters[0]);
+    		double y = Double.parseDouble(parameters[1]);
+    		String result = mathFunctions.pow(x,y);
+    		System.out.println(result);
+    	} else {
+    		System.out.println("ERROR: Wrong number of parameters");
+    	}
+
+    }
+
+	static void addCall(String totalParameters) {
+		String[] parameters = totalParameters.split(",");
+		if (parameters.length == 2) {
+			double x = Double.parseDouble(parameters[0]);
+			double y = Double.parseDouble(parameters[1]);
+			String result = mathFunctions.add(x,y);
+			System.out.println(result);
+		} else {
+			System.out.println("ERROR: Wrong number of parameters");
+		}
+	}
+
+	static void subCall(String totalParameters) {
+		String[] parameters = totalParameters.split(",");
+		if (parameters.length == 2) {
+			double x = Double.parseDouble(parameters[0]);
+			double y = Double.parseDouble(parameters[1]);
+			String result = mathFunctions.subtract(x,y);
+			System.out.println(result);
+		} else {
+			System.out.println("ERROR: Wrong number of parameters");
+		}
+	}
+
+	static void multCall(String totalParameters) {
+		String[] parameters = totalParameters.split(",");
+		if (parameters.length == 2) {
+			double x = Double.parseDouble(parameters[0]);
+			double y = Double.parseDouble(parameters[1]);
+			String result = mathFunctions.multiply(x,y);
+			System.out.println(result);
+		} else {
+			System.out.println("ERROR: Wrong number of parameters");
+		}
+	}
+
+	static void divCall(String totalParameters) {
+		String[] parameters = totalParameters.split(",");
+		if (parameters.length == 2) {
+			double x = Double.parseDouble(parameters[0]);
+			double y = Double.parseDouble(parameters[1]);
+			String result = mathFunctions.divide(x,y);
+			System.out.println(result);
+		} else {
+			System.out.println("ERROR: Wrong number of parameters");
+		}
 }
