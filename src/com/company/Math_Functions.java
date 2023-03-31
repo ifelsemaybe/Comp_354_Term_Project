@@ -260,7 +260,6 @@ public class Math_Functions {
      * @param x an argument to the natural log
      * @return The natural logarithm of an argument x
      */
-    double ln(double x) {
 
     /**
      * INTERMEDIATE FUNCTION
@@ -487,5 +486,4 @@ public class Math_Functions {
         }
         return x1;
 	}
-    
 }
